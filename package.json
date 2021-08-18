@@ -1,5 +1,5 @@
 {
-  "name": "cmdtool",
+  "name": "sitescan",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -9,19 +9,19 @@
     "prepare": "husky install",
     "build": "tsc",
     "watch": "tsc --watch",
-    "package": "pkg -t node14-win . -o bin/cli.exe",
+    "package": "pkg -t node14-win . -o bin/sitescan.exe",
     "lint": "eslint './src/**/*.ts' --max-warnings 0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YuJianrong/cmdTool.git"
+    "url": "git+https://github.com/YuJianrong/siteScan.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/YuJianrong/cmdTool/issues"
+    "url": "https://github.com/YuJianrong/siteScan/issues"
   },
-  "homepage": "https://github.com/YuJianrong/cmdTool#readme",
+  "homepage": "https://github.com/YuJianrong/siteScan#readme",
   "devDependencies": {
     "@types/node": "^16.6.1",
     "@types/tough-cookie": "^4.0.1",
