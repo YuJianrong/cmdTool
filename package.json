@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
     "build": "tsc",
-    "package": "pkg",
+    "watch": "tsc --watch",
+    "package": "pkg -t node14-win . -o bin/cli.exe",
     "lint": "eslint './src/**/*.ts' --max-warnings 0"
   },
   "repository": {
@@ -22,6 +23,8 @@
   },
   "homepage": "https://github.com/YuJianrong/cmdTool#readme",
   "devDependencies": {
+    "@types/node": "^16.6.1",
+    "@types/tough-cookie": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "eslint": "^7.32.0",
@@ -34,6 +37,10 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "@fast-csv/format": "^4.3.5",
+    "axios": "^0.21.1",
+    "axios-cookiejar-support": "^1.0.1",
+    "cheerio": "^1.0.0-rc.10",
+    "tough-cookie": "^4.0.0"
   }
 }
