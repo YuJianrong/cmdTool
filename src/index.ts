@@ -4,8 +4,12 @@ import cheerio from 'cheerio';
 import axiosCookieJarSupport from 'axios-cookiejar-support';
 import tough from 'tough-cookie';
 import { writeToString } from '@fast-csv/format';
+import ProxyAgent from 'https-proxy-agent';
+import type agent from 'https-proxy-agent/dist/agent';
 
 axiosCookieJarSupport(axios);
+
+let httpsAgent: agent | undefined = undefined;
 
 const userInfo = fs
   .readFileSync('./userInfo.txt', 'utf-8')
@@ -15,6 +19,10 @@ const userInfo = fs
   .filter((arr) => arr.length >= 2);
 
 const baseURL = process.env.baseURL || 'https://www.bookwalker.com.tw';
+
+if (fs.existsSync('./proxy.txt')) {
+  httpsAgent = ProxyAgent(fs.readFileSync('./proxy.txt', 'utf-8').trim());
+}
 
 let accounts: { email: string; point: number; coupon: number }[] = [];
 async function testInfo() {
@@ -26,6 +34,8 @@ async function testInfo() {
         baseURL,
         jar: cookieJar,
         withCredentials: true,
+        proxy: false,
+        httpsAgent,
       });
 
       const loginPage = await ax.get('/user/login');
