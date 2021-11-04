@@ -1,11 +1,13 @@
 import axios from 'axios';
 import fs from 'fs';
 import cheerio from 'cheerio';
-import { wrapper } from 'axios-cookiejar-support';
+import axiosCookieJarSupport from 'axios-cookiejar-support';
 import tough from 'tough-cookie';
 import { writeToString } from '@fast-csv/format';
 import ProxyAgent from 'https-proxy-agent';
 import type agent from 'https-proxy-agent/dist/agent';
+
+axiosCookieJarSupport(axios);
 
 let httpsAgent: agent | undefined = undefined;
 
@@ -28,15 +30,13 @@ async function testInfo() {
     console.log(`process ${email}`);
     try {
       const cookieJar = new tough.CookieJar();
-      const ax = wrapper(
-        axios.create({
-          baseURL,
-          jar: cookieJar,
-          withCredentials: true,
-          proxy: false,
-          httpsAgent,
-        }),
-      );
+      const ax = axios.create({
+        baseURL,
+        jar: cookieJar,
+        withCredentials: true,
+        proxy: false,
+        httpsAgent,
+      });
 
       const loginPage = await ax.get('/user/login');
       if (loginPage.status !== 200) {
