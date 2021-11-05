@@ -68,10 +68,10 @@ async function testInfo() {
         throw new Error(`Error access /member: [${member.status}]: [${member.data}]`);
       }
       const $member = cheerio.load(member.data);
-      const [point, coupon] = $member('.user_point .point_detail .point')
-        .toArray()
-        .map((elm) => $member(elm).text())
-        .map((text) => parseInt(text, 10));
+      const [point, coupon] = ['持有點數', '持有優惠券'].map((str) =>
+        Number($member(`ul:contains("${str}") li .infoTbImpor`).text()),
+      );
+
       console.log(`Points: ${point} , Coupons: ${coupon}`);
       accounts.push({ email, point, coupon });
     } catch (error) {
